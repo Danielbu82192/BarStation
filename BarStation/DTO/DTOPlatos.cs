@@ -140,13 +140,25 @@ namespace DTO
             }
             return ListArr;
         }
-public String[] ConvertVector3(List<DTOPlatos> listPlatos)
+
+        public String[] ConvertVector3(List<DTOPlatos> listPlatos)
         {
             String[] ListArr = new String[listPlatos.Count];
             for (int i = 0; i < listPlatos.Count; i++)
             {
                 DTOPlatos plato = listPlatos[i];
                 ListArr[i] = plato.getNombrePlato().ToString() + "|" + plato.getCantidad();
+            }
+            return ListArr;
+        }
+
+        public String[] ConvertVector4(List<DTOPlatos> listPlatos)
+        {
+            String[] ListArr = new String[listPlatos.Count];
+            for (int i = 0; i < listPlatos.Count; i++)
+            {
+                DTOPlatos plato = listPlatos[i];
+                ListArr[i] = plato.getNombrePlato() + "|" + plato.getNombrePlato().ToString() + "|" + plato.getCantidad();
             }
             return ListArr;
         }

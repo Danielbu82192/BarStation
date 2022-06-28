@@ -222,20 +222,8 @@ $(document).ready(function () {
             swal("Upps!", "Todos los campos deben estar llenos!", "error");
         } else {
             var datos = $("#inpCedula").val() + "|" + $("#inpNombre").val() + "|" + $("#inpApellido").val() + "|" + $("#inpCorreoElect").val() + "|" + $("#inpCelular").val() + "|" + $("#inpContraseña").val() + "|" +$("#slcRol option:selected").attr("name");
-            $.ajax({
-                type: "POST",
-                url: "Services/ServiceComandas.svc/ValidarUsuarioCreado",
-                data: '{"cedula":"' + $("#inpCedula").val() + '","correos":"' + $("#inpCorreoElect").val() + '"}',
-                contentType: "application/json; charset=utf-8",
-                dataType: "json",
-                async: false,
-                processdata: true,
-                success: function (dato) {
-                    var valor2 = dato.ValidarUsuarioCreadoResult;
-                    if (valor2 != 0) {
-                        swal("Upps!", "Usuario ya registrado!", "error");
-                    } else {
-                        $.ajax({
+         
+                      $.ajax({
                             type: "POST",
                             url: "Services/ServiceComandas.svc/Insertar_Usuario",
                             data: '{"datos":"' + datos + '"}',
@@ -259,11 +247,9 @@ $(document).ready(function () {
                                 }
 
                             }
-                        });
-                    }
-                }
             });
-
+            CargarUsuarios();
+                
         
         }
     });

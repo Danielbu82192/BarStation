@@ -112,7 +112,11 @@ namespace BarStation.Services
             usu.setCelularUsu(asd[4]);
             usu.setContraUsu(asd[5]);
             usu.setIdRol(int.Parse(asd[6]));
-            return new CAD.CADUsuario().Insertar_Usuario(usu);
+            string i = new CAD.CADUsuario().ValidarUsuarioCreado(usu);
+            if (i != "0")
+                return new CAD.CADUsuario().Insertar_Usuario(usu);
+            else
+                return 1;
         }
 
         //Buscar todos los platos
@@ -260,6 +264,45 @@ namespace BarStation.Services
             usu.setRol(men[6]);
             return new CAD.CADUsuario().Actualizar_Usuario(usu,int.Parse(men[7]));
         }
+
+        public String[] TraerComandas()
+        {
+            return new DTO.DTOComandas().convertirVector1(new CAD.CADComandas().CargarComandas());
+        }
+
+        public int EstdoComanda(String id, string estado)
+        {
+            return new CAD.CADComandas().EstdoComanda(int.Parse(id), int.Parse(estado));
+        }
+
+        public string[] CargarUnaComanda(string ID)
+        {
+            return new DTO.DTOPlatos().ConvertVector4(new CAD.CADComandas().CargarUnaComanda(int.Parse(ID)));
+        }
+
+        public int AgregarPlatoComanda(string IDComanda, string IDPlato, string Cantidad)
+        {
+            return new CAD.CADComandas().AgregarPlatoComanda(int.Parse(IDComanda), IDPlato, int.Parse(Cantidad));
+        }
+
+        public int EliminarPlatoComanda(string IDComanda, string IDPlato)
+        {
+            return new CAD.CADComandas().EliminarPlatoComanda(int.Parse(IDComanda), IDPlato);
+        }
+
+        public string CargarComentario(string IDComanda)
+        {
+            return new CAD.CADComandas().CargarComentario(int.Parse(IDComanda));
+        }
+
+        public int ActualizaComentario(string IDComanda,String comentario)
+        {
+            DTOComandas cmd = new DTOComandas();
+            cmd.setIdComandas(int.Parse(IDComanda));
+            cmd.setComentario(comentario);
+            return new CAD.CADComandas().ActualizaComanda(cmd);
+        }
+
     }
 }
 
